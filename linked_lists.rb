@@ -41,11 +41,11 @@ class LinkedList
   end
 
   def head
-    puts @start.value
+    @start.value
   end
 
   def tail
-    puts @end.value
+    @end.value
   end
   
   def at(index)
@@ -141,11 +141,11 @@ linked_list.append(1)
 linked_list.append(2)
 linked_list.append(3)
 linked_list.append(4)
-linked_list.append('Name')
+linked_list.append('Last')
 linked_list.prepend('First')
 puts linked_list.to_s
-linked_list.head
-linked_list.tail
+puts linked_list.head
+puts linked_list.tail
 puts "Size: #{linked_list.size}"
 linked_list.at(4)
 puts linked_list.pop
