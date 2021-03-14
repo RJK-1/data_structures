@@ -151,14 +151,11 @@ class Tree
   end
 end
 
-array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+array = Array.new(15) { rand(1..100) }
 tree = Tree.new(array)
+
 tree.pretty_print
-tree.insert(500)
-tree.pretty_print
-tree.delete(9)
-tree.pretty_print
-puts tree.find(67)
+puts tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
 
 puts 'Level Order Traversal:'
 p tree.level_order
@@ -172,17 +169,24 @@ puts tree.inorder
 puts 'Post-Order Traversal:'
 puts tree.postorder
 
-height = 500
-depth = 500
-
-puts "Height of #{depth}: #{tree.height(height)}"
-puts "Depth of #{depth}: #{tree.depth(depth)}"
-puts tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
-
-tree.insert(403)
+tree.insert(203)
+tree.insert(157)
+tree.insert(306)
 tree.pretty_print
 puts tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
 
 tree.rebalance
 tree.pretty_print
 puts tree.balanced? ? 'Tree is balanced' : 'Tree is not balanced'
+
+puts 'Level Order Traversal:'
+p tree.level_order
+
+puts 'Pre-Order Traversal:'
+puts tree.preorder
+
+puts 'In-Order Traversal:'
+puts tree.inorder
+
+puts 'Post-Order Traversal:'
+puts tree.postorder
