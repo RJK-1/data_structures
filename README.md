@@ -14,3 +14,9 @@ retaining readability.
 
 N.B. The pretty print method was provided by The Odin Project
      and made by a previous student.
+
+The final exercise in the data structures set was the 
+Knights Travails program, where the computer works out how many
+moves it would require for a knight to get from one space to
+another on a chess board. This obviously has no other pieces
+on the board.
