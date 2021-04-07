@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Class initializes 8x8 chess board.
 class Board
   attr_accessor :board
@@ -9,7 +11,7 @@ class Board
   def create_board
     @board = Array.new(8) { Array.new(8) }
     @board.map do |row|
-      row.map { |element| element = 'O' }
+      row.map { 'O' }
     end
   end
 
@@ -41,6 +43,7 @@ class Knight
     @position = nil
     @move_to = nil
     @root = nil
+    @moves = []
   end
 
   def update_position
@@ -52,7 +55,10 @@ class Knight
     @move_to = to
     @board.update_board(@position)
     @root = calculate_moves
-    find_node
+    target_node = find_node(@move_to)
+    list_moves(target_node)
+    @moves << target_node.data
+    print_moves
   end
 
   def calculate_moves(current_node = nil)
@@ -77,21 +83,38 @@ class Knight
     possible_moves.delete(node.data)
     possible_moves.each { |n| node.moves << Node.new(n) }
     possible_moves.include?(@move_to) ? return : node.moves.each { |n| calculate_moves(n) }
+
     node
   end
 
-  def find_node(node = @root)
-    puts @board.board[2][0]
-    #puts node.data
+  def find_node(move_to, node = @root)
     queue = []
+    target_node = nil
     queue << node
-    queue << node.moves
-    puts queue
-    queue.each {|node| p node }
+    while target_node.nil?
+      queue = queue.flatten
+      queue << queue[0].moves
+      queue[0].data == move_to ? target_node = queue[0] : queue.shift
+    end
+    target_node
+  end
+
+  def list_moves(target, node = @root)
+    if node.moves.include? target
+      @moves.unshift(node.data)
+      list_moves(node) if node != @root
+    else
+      node.moves.each { |move| list_moves(target, move) }
+    end
+  end
+
+  def print_moves
+    count = @moves.length - 1
+    "You made it in #{count} moves! Here's your path: #{@moves}"
   end
 end
 
 board = Board.new
 knight = Knight.new(board)
 
-knight.knight_moves([0, 0], [2, 4])
+p knight.knight_moves([0, 0], [7, 7])
